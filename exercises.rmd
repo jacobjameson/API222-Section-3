@@ -1,0 +1,208 @@
+---
+title: "Section 3 - More on Linear Regression: Exercises"
+output: pdf_document
+author: Jacob Jameson
+---
+
+
+As Professor Saghafian noted on Slide 14 of lecture 6, there are certain skills you are expected to have about inference in general, particularly when it comes to linear regression models. The goal of today's section is to practice (some of) these skills. The session involves executing coding exercises and answering conceptual questions along the way. We will work with the \textbf{\textit{Credit}} data set, which is a part of the \textbf{\textit{ISLR}} package. I will give you time to work on each subsection and then I will share my proposed code and answers to the questions. You are encouraged to work in pairs. 
+
+
+```{r include=FALSE}
+# We need the ISLR library for the dataset
+library(ISLR)
+
+# We need this library to perfom KNN
+library(FNN)
+
+# Here, we also use the data.table package, 
+# which is great for certain data cleaning/manipulation operations
+# For more information, please check the documentation/vignette of the package
+library(data.table)
+```
+
+Note that in some cases there are several ways to write the code to yield the same result. 
+
+### 1 Exploratory data analysis
+
+1. Load the Credit data set from ISLR package. Check the codebook to understand the
+structure of the data set and the definition and unit of each variable.
+
+```{r }
+credit_data  <- as.data.table(Credit) 
+```
+
+2. How many observations and variables does the data set include?
+
+```{r }
+# code here
+```
+
+3. What are the categorical variables in the data set?
+
+```{r }
+# code here
+```
+
+
+4. Are they rows with missing values? If so, how many? Hint: checkout the `complete.cases` function.
+
+```{r }
+# code here
+```
+
+5. Generate summary statistics of all the variables. What is the mean and standard deviation of income?
+
+```{r }
+# code here
+```
+
+The mean income is: 
+
+```{r }
+# code here
+```
+
+The standard deviation of income is:
+
+```{r }
+# code here
+```
+
+6. Plot the relationship between balance (y-axis) and income (x-axis). What do you notice about the relationship?
+
+```{r }
+# code here
+```
+
+
+
+### 2 Inference
+
+1. Regress balance (y-variable) on income (x-variable). Interpret the income coefficient.
+
+```{r }
+# code here
+```
+
+
+
+2. Now add gender as an explanatory variable.
+
+```{r }
+# code here
+```
+
+
+(a) Interpret all three coefficients (intercept, income coefficient, gender coefficient).
+
+
+
+```{r }
+# code here
+```
+
+
+
+(b) Test the null hypothesis that there is no relationship between balance and gender (i.e. $\beta_{gender} = 0$). What do you conclude about the test?
+
+```{r}
+# code here
+```
+
+
+(c) What is the confidence interval of the gender coefficient? Interpret this coefficient. Hint: checkout the \textit{confint} function.
+
+```{r }
+# code here
+```
+
+
+(d) Find and interpret the $R^2$ of this regression.
+
+
+```{r }
+# code here
+```
+
+
+3. Now add an interaction term between income and gender to the regression in part 2.
+
+(a) Interpret the coefficient on the interaction term.
+
+```{r }
+# code here
+```
+
+
+(b) What is $R^2$ and the adjusted $R^2$ of this regression. What do these two values tell you about the usefulness of the interaction term?
+
+
+```{r}
+# code here
+```
+
+(c) Plot the residuals. What does the plot tell you about your model fit?
+
+```{r }
+# code here
+```
+
+
+
+4. Rerun the model in part 3 using the log-transformed version of the balance and income variables. Interpret the coefficient on the income term.
+
+```{r }
+# code here
+```
+
+
+
+
+#### 3 BONUS: Prediction
+
+Now let's revisit prediction models using linear regression and KNN.
+
+1. Prepare the input datasets
+
+(a) Drop the ID column, the categorical columns, and any rows with missing values.
+
+```{r }
+# code here
+```
+
+
+(b) Randomly split the data into a training set (75% of the observations) and a test set (the remaining 25% of the observations).
+
+```{r }
+# code here
+```
+
+2. When you use your training data to build a linear model that regresses account balance on all other features available in the data (plus an intercept), what is your test Mean Squared Error?
+
+```{r }
+# code here
+```
+
+3. When you use your training data to build a KNN model that regresses account balance on all other features in the data, what is your test Mean Squared Error with $K = 1$?
+
+```{r }
+# code here
+```
+
+4. In last Friday's review session, one of your classmates asked: "Instead of testing a few individual values of K, could we use a more systematic approach that computes the Mean Squared Error for many values of $K$ and then plot model performance as a function of $K$."
+
+(a) In the first review session, we went through the basics of looping. Use a "for" loop to implement the approach your classmate suggested. Test $K$ values going from 1 to 100.
+
+```{r }
+# code here
+```
+
+(b) What can you conclude about the optimal $K$ value for this model.
+
+```{r }
+# code here
+```
+
+
+
